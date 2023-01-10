@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
-import '../styles/BarNav.css';
+import '../styles/SearchBar.css';
 import ImgSearch from '../images/search-solid.svg'
+import { useDispatch } from 'react-redux';
+import { getGameName } from '../actions';
 
-export const BarNav = () => {
+export const SearchBar = () => {
   
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState('');
 
   const deleteSearch = () => {
     setSearch('');
   }
 
-  const handleChange = event => {
-    setSearch(event.target.value)
+  const handleInputChange = e => {
+    e.preventDefault();
+    setSearch(e.target.value)
   }
 
+  const handleSearchBar = (e) => {
+    e.preventDefault();
+    dispatch(getGameName(search));
+  }
+
+  
   return (
     <div>
       <nav className='container-bar-nav'>
@@ -24,8 +35,8 @@ export const BarNav = () => {
           className='input-search-bar' 
             type='text'
             value={search}
-            onChange={handleChange}
-            placeholder = 'Search for games...'>
+            onChange={(e) => handleInputChange(e)}
+            placeholder = 'Search games...'>
           </input>
       
           <span 
@@ -36,16 +47,26 @@ export const BarNav = () => {
           <span>
             <img 
               className='span-search'
+              onClick={(e) => handleSearchBar(e)}
               src={ImgSearch} 
               alt='Search' 
               width='40px' 
               height='70px' />
           </span>
 
-          <a className='a-bar-nav' href='localhost:3000'>Home</a>
-          <a className='a-bar-nav' href='localhost:3000'>About</a>
+          <a className='a-bar-nav' href='/'>Home</a>
+          <a className='a-bar-nav2' href='/newGame'>New Game</a>
         </div>
       </nav> 
     </div>
   )
 }
+//how do responsive design
+
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+### // SEARCH ALL GAMES
+GET  http://localhost:3001/videogames HTTP/1.1
+
+### // SEARCH A GAME BY NAME
+GET  http://localhost:3001/videogames?name=2024 HTTP/1.1
+
+### // SEARCH A GAME BY ID
+GET  http://localhost:3001/videogames/3328 HTTP/1.1
+
+### // SEARCH ALL GENRES
+GET  http://localhost:3001/genres HTTP/1.1
+
+### // CREATE A NEW GAME
+POST http://localhost:3001/videogames HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Fifa 2024",
+    "image": "Juego",
+    "description": "Juego de futbol",
+    "releaseDate": "18-09-2022",
+    "rating": 8,
+    "platforms": ["Xbox One", "PlayStation 5", "PC"],
+    "genres": ["Action", "Platformer"]
+}
+

@@ -1,0 +1,48 @@
+.form-container{
+  font-size: 25px;
+}
+
+.boton-volver{
+  margin: 25px 25px 0 0;  
+  font-size: 30px;
+  background-color: rgb(247, 100, 100);
+  cursor: pointer;
+}
+
+.boton-volver:hover{
+  background-color: rgb(199, 40, 40);  
+}
+
+.boton-crear{
+  font-size: 30px;
+  background-color: rgb(146, 227, 146);
+  cursor: pointer;
+}
+
+.boton-crear:hover{
+  background-color: rgb(69, 143, 69);
+}
+
+.form-name{
+  margin-bottom: 5px;
+}
+
+.form-description{
+  margin-bottom: 5px;
+}
+
+.form-date{
+  margin-bottom: 5px;
+}
+
+.form-rating{
+  margin-bottom: 5px;
+}
+
+.form-image{
+  margin-bottom: 5px;
+}
+
+.form-genre{
+  margin-bottom: 5px;
+}
