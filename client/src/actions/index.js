@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 export const getGames = () => {
-  return async function(dispatch) {
-    let json = await axios.get('http://localhost:3001/videogames');
-    
+  return async (dispatch) => {
+    let json = await axios('http://localhost:3001/videogames');
     return dispatch({
       type: 'GET_GAMES',
       payload: json.data
@@ -17,6 +16,17 @@ export const getGenres = () => {
     return dispatch({
       type: 'GET_GENRES',
       payload: allGenres.data
+    })
+  }
+};
+
+export const getPlatforms = () => {
+  return async function(dispatch) {
+    let json = await axios.get('http://localhost:3001/platforms');
+    
+    return dispatch({
+      type: 'GET_PLATFORMS',
+      payload: json.data
     })
   }
 };
@@ -37,36 +47,65 @@ export const orderGamesByName = (payload) => {
 
 export const filterGameCreated = (payload) => {
   return {
-    type: 'FILTER_BY_GAME_CREATED',
+    type: 'FILTER_GAME_BY_CREATED',
     payload
   }
 };
 
-export const filterGenreCreated = (payload) => {
+export const filterGameByGenre = (payload) => {
   return {
-    type: 'FILTER_BY_GENRE_CREATED',
+    type: 'FILTER_GAME_BY_GENRE',
     payload
   }
 };
 
-export const getGameName = (name) => {
+export const searchGameName = (name) => {
   return async function (dispatch) {
     try {
       let json =  await axios.get('http://localhost:3001/videogames?name=' + name);
       return dispatch({
-      type: 'GET_GAME_NAME',
+      type: 'SEARCH_GAME_NAME',
       payload: json.data
       })
     }
     catch(error) {
-     console.log(error); 
+     alert('Game not found :( Please try with another game.'); 
     }
   }
 };
 
 export const postGame = (payload) => {
-  return async (dispatch) => {
-    const newGame = await axios.post('http://localhost:3001/videogames', payload);
+  return async function ()  {
+    const newGame = await axios.post('http://localhost:3001/videogames',payload);
     return newGame;
+  }
+};
+
+export const getGameDetail = (id) => {
+  return async function(dispatch) {
+    try {
+      let json = await axios.get('http://localhost:3001/videogames/' + id);
+      return dispatch ({
+        type: 'GET_GAME_DETAIL',
+        payload: json.data
+      })
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+};
+
+export const deleteGame = (id) => {
+  return async function() {
+    const deleteGame = await axios.delete('http://localhost:3001/videogames/' + id);
+    return deleteGame;
+  }
+};
+
+export const updateGame = (id, payload) => {
+  return async function ()  {
+    const upGame = await axios.put(`http://localhost:3001/videogames/${id}`,payload);
+    return upGame;
   }
 };

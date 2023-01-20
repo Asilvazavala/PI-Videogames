@@ -1,46 +1,33 @@
-body {
-  font-family: 'Rubik', sans-serif;
-}
-
-.container-all {
-  background-image: url('../images/videogame.png');
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  min-height: 100vh;
-}
-
-.boton-magico {
-  background: #212d44;
-  cursor: pointer;
-  border: none;
-  padding: 12px 24px;
-  letter-spacing: 4px;
-
-  color: white;
-  font-size: 35px;
-  font-weight: bold;
-  position: relative;
-  border-radius: 21px;
-  margin: 15px 25px 15px 25px;
-  }
+ .container-all {
+  width: 100%;
+  height: 100vh;
+  background-image: url('../images/gifGame.gif');
+  background-size: cover;
+  background-position: top;
+  padding-bottom: 390px;
+  padding-top: 50px;
+} 
   
   .btn-neon-land {
     position: relative;
     display: inline-block;
     padding: 13px 26px;
-    color: rgb(0, 0, 0);
+    color: white;
     letter-spacing: 4px;
-    font-size: 30px;
+    width: 400px;
+    border-radius: 10px;
+    font-size: 35px;
     text-decoration: none;
     overflow: hidden;
     transition: 0.2s;
-    background-color: #445f90;
+    background-color: #445c90;
     cursor: pointer;
+    margin-top: -1%;
   }
   
   .btn-neon-land:hover {
-    background: #212d44;
-    box-shadow: 0 0 10px #212d44, 0 0 40px #212d44, 0 0 80px #212d44;
+    background: #212744;
+    box-shadow: 0 0 10px #212244, 0 0 40px #212244, 0 0 80px #212244;
     transition-delay: 1s;
   }
   
@@ -54,7 +41,7 @@ body {
     left: -100%;
     width: 100%;
     height: 10px;
-    background: linear-gradient(90deg, transparent, #212d44);
+    background: linear-gradient(90deg, transparent, #212244);
   }
   
   .btn-neon-land:hover #span1 {
@@ -67,7 +54,7 @@ body {
     right: -100%;
     width: 100%;
     height: 10px;
-    background: linear-gradient(270deg, transparent, #212d44);
+    background: linear-gradient(270deg, transparent, #212244);
   }
   
   .btn-neon-land:hover #span3 {
@@ -81,7 +68,7 @@ body {
     right: 0;
     width: 10px;
     height: 100%;
-    background: linear-gradient(180deg, transparent, #212d44);
+    background: linear-gradient(180deg, transparent, #212244);
   }
   
   .btn-neon-land:hover #span2 {
@@ -95,7 +82,7 @@ body {
     left: 0;
     width: 10px;
     height: 100%;
-    background: linear-gradient(360deg, transparent, #212d44);
+    background: linear-gradient(360deg, transparent, #212244);
   }
   
   .btn-neon-land:hover #span4 {
@@ -103,3 +90,40 @@ body {
     transition: 0.8s;
     transition-delay: 0.6s;
   }
+
+  .loader-land {
+    position: absolute;
+    height: 40px;
+    width: 6px;
+    color: black;
+    left: 50%;
+    top: 23%;
+    animation: paddles 0.75s ease-out infinite;
+  }
+  .loader-land:before {
+    content: "";
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 15px;
+    width: 12px;
+    height: 12px;
+    background-color: #de3500;
+    border-radius: 50%;
+    animation: ballbounce 0.6s ease-out infinite;
+  }
+  
+  @keyframes paddles {
+    0% { box-shadow: -25px -10px, 25px 10px}
+    50% { box-shadow: -25px 8px, 25px -10px }
+    100% { box-shadow: -25px -10px, 25px 10px}
+  }
+  @keyframes ballbounce {
+    0% { transform: translateX(-20px) scale(1, 1.2) }
+    25% { transform: scale(1.2, 1) }
+    50% { transform: translateX(15px) scale(1, 1.2) }
+    75% { transform: scale(1.2, 1) }
+    100% { transform: translateX(-20px) }
+  }
+        

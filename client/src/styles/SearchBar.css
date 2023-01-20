@@ -34,7 +34,7 @@
   background-color: #676c82;
 }
 
-.a-bar-nav {
+.a-home {
   margin: 22px 60px 0 0;
   width: 80px;
   height: 30px; 
@@ -45,13 +45,13 @@
   text-decoration: none;
 }
 
-.a-bar-nav:hover, .a-bar-nav2:hover {
+.a-home:hover, .a-newGame:hover {
   background-color: white;
   color: #212d44;
   border-radius: 21px;
 }
 
-.a-bar-nav2 {
+.a-newGame {
   margin: 22px 0 0 0;
   width: 120px;
   height: 30px; 
@@ -64,7 +64,11 @@
 
 .h2-bar-nav {
   width: 150px;
-  margin: 0 0 0 30px;
+  margin: 4px 0 0 30px;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 700;
+  color: white;
 }
 
 .span-search {
@@ -75,9 +79,9 @@
 .show-x {
   display: flex;
   position: absolute;
-  left: 45%;
+  left: 46.5%;
   top: 12%;
-  color: rgb(195, 14, 14);
+  color: rgb(159, 35, 35);
   font-size: 20px;
   font-family: 'Times New Roman', Times, serif;
   font-weight: 900;

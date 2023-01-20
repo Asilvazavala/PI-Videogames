@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGames, orderGamesByRating, orderGamesByName, filterGameCreated, filterGenreCreated } from '../actions';
+import { getGames, getGenres, orderGamesByRating, orderGamesByName, filterGameCreated, filterGameByGenre } from '../actions';
 import '../styles/Home.css';
-import { Link } from 'react-router-dom';
 import { Card } from './Card'
 import { SearchBar } from './SearchBar';
 import { Paginado } from './Paginado';
+import { Footer } from './Footer';
 
 
 export const Home = () => {
@@ -14,9 +14,13 @@ export const Home = () => {
   const dispatch = useDispatch();
   // Me traigo el estado de games de la store
   const allGames = useSelector((state) => state.games);
+  const genres = useSelector((state) => state.genres);
+
+
   const [orden, setOrden] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage, setGamesPerPage] = useState(15);
+
   const indexLastGame = currentPage * gamesPerPage;
   const indexFirstGame = indexLastGame - gamesPerPage;
   const currentGames = allGames.slice(indexFirstGame, indexLastGame);
@@ -25,22 +29,32 @@ export const Home = () => {
     setCurrentPage(pageNumber);
   };
 
+  const searchBarPage = () => {
+    setCurrentPage(1);
+  };
+
 // Ejecuto la action getGames de ./Actions
   useEffect(() => {
     dispatch(getGames());
   },[dispatch])
 
+// Ejecuto la action getGenres de ./Actions
+  useEffect(() => {
+    dispatch(getGenres())
+  }, [dispatch]);
+
+  
   const handleLoadGames = (e) => {
     e.preventDefault();
     dispatch(getGames());
   };
 
   const handleOrderGameByName = (e) => {
+    setOrden(`Ordenado ${e.target.value}`);
+    dispatch(orderGamesByName(e.target.value));
     e.preventDefault();
     setCurrentPage(1);
-    dispatch(orderGamesByName(e.target.value));
-    setOrden(`Ordenado ${e.target.value}`);
-}
+  };
 
   const handleOrderGameByRating = (e) => {
     e.preventDefault();
@@ -52,33 +66,39 @@ export const Home = () => {
   const handleFilterGameCreated = (e) => {
     e.preventDefault();
     dispatch(filterGameCreated(e.target.value))
+    setCurrentPage(1);
   };
 
-  const handleFilterGenreCreated = (e) => {
+  const handleFilterGameByGenre = (e) => {
     e.preventDefault();
-    dispatch(filterGenreCreated(e.target.value))
+    dispatch(filterGameByGenre(e.target.value))
+    setCurrentPage(1)
   };
 
-  
 
   return (
     <div>
-      <SearchBar/>
+
+      <SearchBar searchBarPage={searchBarPage}/>
+
       <div>
         <span className='order-by'>Order by:</span>
-
-        <button className='btn-magico' href onClick={e => {handleLoadGames(e)}}>Load Games
+        <button 
+          className='btn-neon-home' 
+          onClick={e => {handleLoadGames(e)}}>
+          Load Games
         </button>
-
+        
         <span className='filter-by'>Filter by:</span>
       </div>
+
       <div className='filter-container'>
-        <select className='order-option' onChange={(e) => (handleOrderGameByName(e))}>
-          <option value='ora-asc'>Name (A-Z)</option>
-          <option value='ora-des'>Name (Z-A)</option>
+        <select className='order-option' onClick={(e) => (handleOrderGameByName(e))}>
+          <option value='nam-asc'>Name (A-Z)</option>
+          <option value='nam-des'>Name (Z-A)</option>
         </select>
 
-        <select className='order-option' onChange={(e) => (handleOrderGameByRating(e))}>
+        <select className='order-option' onClick={(e) => (handleOrderGameByRating(e))}>
           <option value='rat-asc'>Rating (1-5)</option>
           <option value='rat-des'>Rating (5-1)</option>
         </select>
@@ -89,39 +109,42 @@ export const Home = () => {
           <option value='vid-cre'>DB Games</option>
         </select>
 
-        <select className='filter-option' onChange={(e) => (handleFilterGenreCreated(e))}>
+        <select className='filter-option' onChange={(e) => (handleFilterGameByGenre(e))}>
           <option value='all-genres'>All Genres</option>
-          <option value='gen-exi'>Api Genres</option>
-          <option value='gen-cre'>DB Genres</option>
+            {genres.map((genre) => {
+              return (
+                <option value={genre.name} >{genre.name} </option>
+              )
+            })}
         </select>
       </div>
 
       <Paginado
-      gamesPerPage = {gamesPerPage}
-      allGames = {allGames.length}
-      paginado = {paginado}
+        gamesPerPage = {gamesPerPage}
+        allGames = {allGames.length}
+        paginado = {paginado}
+        currentPage = {currentPage}
       />
 
-      {
-        currentGames?.map((el) => {
-          return (
-            <div className='Card-container'>
-              <Link to = {'/home/' + el.id}>
-                <div className='Card'>
-                  <Card 
-                  name = {el.name} 
-                  image = {el.image} 
-                  genres = {el.genres} 
-                  platforms = {el.platforms}  
-                  rating = {el.rating}
-                  key = {el.id}/>
-                </div>              
-              </Link>
-            </div>
-        )})
-      }
-
-     
+      <ul className='card'>
+      {currentGames.length > 0 ? currentGames.map((el) => {
+        return ( 
+          <li className='card-li'>          
+            <Card 
+              name = {el.name} 
+              image = {el.image} 
+              genres = {!el.createdInDB ? el.genres : el.genres.map(el => el.name)}  
+              platforms = {el.platforms + (',  ')}  
+              rating = {el.rating}
+              id = {el.id}
+              key = {el.id}/>
+          </li>                      
+        )}) : <span class="loader-home">Load&nbsp;ng</span>
+      } 
+      </ul>  
+      
+      <br></br>
+      <Footer/>
     </div>
   )
 }

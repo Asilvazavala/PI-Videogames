@@ -6,9 +6,9 @@
 }
 
 .li-paginated {
-  padding: 5px;
+  padding: 10px;
   font-size: 25px;
-  margin: 0 15px;
+  margin: 0 5px;
   cursor: pointer;
   border-radius: 30%;
 }
@@ -16,6 +16,7 @@
 .li-paginated-active {
   border: 2px solid black;
   border-radius: 30%;
+  margin: 0 10px;
   background-color: #212d44;
   font-size: 25px;
   color: white;

@@ -31,8 +31,15 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     platforms: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.JSONB),
       allowNull: false,
+      defaultValue: [],
+/*       get() {
+        return this.getDataValue('platforms').split(';')
+    },
+    set(val) {
+       this.setDataValue('platforms',val.join(';'));
+    }, */
     },
     createdInDB: {
       type: DataTypes.BOOLEAN,

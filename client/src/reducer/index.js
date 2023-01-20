@@ -2,7 +2,9 @@ const initialState = {
   games: [],
   allGames: [],
   genres: [],
-  allGenres: []
+  allGenres: [],
+  platforms: [],
+  detail: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +20,11 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           genres: action.payload,
           allGenres: action.payload
+      }
+    case 'GET_PLATFORMS':
+        return {
+          ...state,
+          platforms: action.payload,
       }
     case 'ORDER_GAMES_BY_RATING':
       let orderRating = action.payload === 'rat-asc' ?
@@ -42,7 +49,7 @@ const rootReducer = (state = initialState, action) => {
           games: orderRating
       }
     case 'ORDER_GAMES_BY_NAME':
-      let orderName = action.payload === 'ora-asc' ?
+      let orderName = action.payload === 'nam-asc' ?
         state.games.sort(function (a, b) {
           if (a.name > b.name) {
             return 1;
@@ -63,24 +70,71 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           games: orderName
       }
-    case 'FILTER_BY_GAME_CREATED':
+    case 'FILTER_GAME_BY_CREATED':
       const filterGameCreated = action.payload === 'vid-cre' ? state.allGames.filter(el => el.createdInDB) : state.allGames.filter(el => !el.createdInDB)
+      const resultFilterGameCreated = () => {
+        if (action.payload === 'all-games') { 
+          return state.allGames
+        } else if (!filterGameCreated.length) {
+            alert('No games in the DB yet :(')
+            return state.allGames
+          } else {
+              return filterGameCreated;
+            }
+      }
       return {
         ...state,
-        games: action.payload === 'all-games' ? state.allGames : filterGameCreated
+        games: resultFilterGameCreated()
+        // games: action.payload === 'all-games' ? state.allGames : filterGameCreated, 
       }
-    case 'FILTER_BY_GENRE_CREATED':
-        const filterGenreCreated = action.payload === 'gen-cre' ? state.allGenres.filter(el => el.createdInDB) : state.allGenres.filter(el => !el.createdInDB)
-        return {
-          ...state,
-          genres: action.payload === 'all-genres' ? state.allGenres : filterGenreCreated
+    case 'FILTER_GAME_BY_GENRE':
+      const allGamesByGenre = state.allGames
+      const genreFilterDb = allGamesByGenre.filter(game => {
+        if(game.createdInDB) {
+          let infoGenre = game.genres
+          return infoGenre.map(el => el.name).includes(action.payload)
+        }
+      })
+      const genreFilterApi = allGamesByGenre.filter(game => {
+        if(game.genres) {
+          const infoGenre = game.genres
+          return infoGenre.includes(action.payload)
+        }
+      })
+      const allGenresApiDb = genreFilterApi.concat(genreFilterDb);
+      const resultFilterGenre = () => {  
+        if (action.payload === 'all-genres') { 
+          return allGamesByGenre 
+        } else if (!allGenresApiDb.length) {
+            alert(`No games of genre ${action.payload} :( Try with another`)
+            return allGamesByGenre
+          } else {
+              return allGenresApiDb;
+            }
       }
-    case 'GET_GAME_NAME':
       return {
         ...state,
-        games: action.payload
+        games: resultFilterGenre()
+    }
+    case 'SEARCH_GAME_NAME':
+      return {
+        ...state,
+        games: action.payload  
       }
     case 'POST_GAME':
+      return {
+        ...state,
+      }
+    case 'GET_GAME_DETAIL':
+      return{
+        ...state,
+        detail: action.payload
+      }
+    case 'DELETE_GAME':
+      return {
+        ...state,
+      }
+    case 'UPDATE_GAME':
       return {
         ...state,
       }

@@ -1,0 +1,109 @@
+.container-GameDetail{
+  width: 100%;
+  height: 100vh;
+  background-image: url('../images/blade.jpg');
+  background-size: cover;
+  padding-top: 10px;
+}
+
+.card-detail {
+  border: 4px solid #212d44;
+  width: 400px;
+  min-height: 250px;
+  margin: 30px 12px 22px 35%;
+}
+
+.buttons-game-detail {
+  font-size: 30px;
+  cursor: pointer;
+  margin-right: 30px;
+  margin-left: 30px;
+  border-radius: 12px;
+}
+
+.button-return-detail{
+  background-color: rgb(255, 196, 93);
+}
+
+.button-return-detail:hover{
+  background: #da8320;
+  box-shadow: 0 0 10px #da8320, 0 0 40px #da8320, 0 0 80px #da8320;
+}
+
+
+.button-delete-detail{
+  background-color: rgb(247, 100, 100);
+}
+
+.button-delete-detail:hover{
+  background: #bc2e2e;
+  box-shadow: 0 0 10px #bc2e2e, 0 0 40px #bc2e2e, 0 0 80px #bc2e2e;
+}
+
+
+.button-update-detail{
+  background-color: rgb(144, 225, 117);
+}
+
+.button-update-detail:hover{
+  background: #15c012;
+  box-shadow: 0 0 10px #15c012, 0 0 40px #15c012, 0 0 80px #15c012;  
+}
+
+.hide-btn{
+  display: none;
+}
+
+.loader {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  margin: 0 auto;
+  top: 40%;
+  left: 10%;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: -70px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: #FF3D00;
+  animation: loading-bounce 0.5s ease-in-out infinite alternate;
+}
+.loader:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 7px;
+  width: 45px;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 rgb(0, 0, 0), -35px 50px 0 rgb(0, 0, 0), -70px 95px 0 rgb(0, 0, 0);
+  animation: loading-step 1s ease-in-out infinite;
+}
+
+@keyframes loading-bounce {
+  0% { transform: scale(1, 0.7)}
+  40% { transform: scale(0.8, 1.2)}
+  60% { transform: scale(1, 1)}
+  100% { bottom: 140px }
+}
+@keyframes loading-step {
+  0% {
+    box-shadow: 0 10px 0 rgba(0,0,0,0),
+                0 10px 0 rgb(0, 0, 0),
+              -35px 50px 0 rgb(0, 0, 0),
+              -70px 90px 0 rgb(0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 10px 0 rgb(0, 0, 0),
+              -35px 50px 0 rgb(0, 0, 0),
+              -70px 90px 0 rgb(0, 0, 0),
+              -70px 90px 0 rgba(0,0,0,0);
+  }
+}
+
+      
